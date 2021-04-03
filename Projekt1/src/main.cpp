@@ -1,30 +1,28 @@
-//
-// Created by jakub on 24.03.2021.
-//
-
+#include <fstream>
 #include <iostream>
-#include "../inc/DoublyLinkedList.hpp"
-#include "../inc/Node.hpp"
-#include "../inc/PriorityQueue.hpp"
-#include "../inc/Iterator.hpp"
+#include "../inc/MyDoublyLinkedList.hpp"
+#include "../inc/MyPriorityQueue.hpp"
 
 int main(){
-    DoublyLinkedList doublyLinkedList;
-    doublyLinkedList.AddFront(6, "HEJ");
-    doublyLinkedList.AddFront(6,"dcfhgjbk");
-    doublyLinkedList.AddFront(6,"111111");
-    doublyLinkedList.AddFront(6,"22222");
-    doublyLinkedList.AddFront(6,"4444");
-    doublyLinkedList.AddFront(6,"dc666bk");
-    doublyLinkedList.AddFront(6,"d888gjbk");
-    doublyLinkedList.AddBack(6,"dc00-0bk");
+
+    MyPriorityQueue myPriorityQueue;
+    MyDoublyLinkedList myDoublyLinkedList;
+    std::ifstream streamFromFileWithData("../data/loremIpsumSmall.txt");
+
+    ActionInDriver(Action::AddData);
+    streamFromFileWithData >> myDoublyLinkedList;
 
 
-    Iterator iterator(&doublyLinkedList.Front());
-    Iterator end(&doublyLinkedList.Back());
-    for (auto it = iterator; it != end; ++it) {
-            std::cout << *it;
-    }
+    //Teoretyczne wysłanie danych
+    ActionInDriver(Action::TransferTo);
+
+    ActionInDriver(Action::Sort);
+    PriorityQueueSort(myDoublyLinkedList, myPriorityQueue);
+
+    ActionInDriver(Action::Messeage);
+    std::cout << myDoublyLinkedList;
+
+    ActionInDriver(Action::End);
 
 }
 

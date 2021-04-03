@@ -1,0 +1,10 @@
+Zadania na ocene bdb (5.0):
+Zalozmy, ze Jan chce wyslac przez Internet wiadomosc W do Anny. Z roznych powodow musi podzielic
+ja na n pakietow. Kazdemu pakietowi nadaje kolejne numery i wysyla przez siec. Komputer Anny po 
+otrzymaniu przeslanych pakietow musi poskladac je w cala wiadomosc, poniewaz moga one przychodzic w losowej
+kolejnosci. Panstwa zadaniem jest zaprojektowanie i zaimplementowanie odpowiedniego rozwiazania radzacego 
+sobie z tym problemem. Nalezy wybrac i zaimplementowac zgodnie z danym dla wybranej struktury
+ADT oraz przeanalizowac czas dzialania - zlozonosc obliczeniowa proponowanego rozwiazania.
+W sprawozdaniu (3-5 strony + strona tytulowa) nalezy opisac rodzaj wybranej struktury danych wraz z
+uzasadnieniem wyboru oraz opisac proponowane rozwiazanie problemu. Nalezy takze opisac sposob analizy
+zlozonosci obliczeniowej i podac jej wynik w notacji duzego O.
