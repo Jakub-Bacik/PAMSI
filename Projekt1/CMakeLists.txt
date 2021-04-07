@@ -36,6 +36,7 @@ add_subdirectory(lib/googletest-master)
 # dodanie pliku wykonwyalnego składającego się z nagłówków i plików zródłowych
 add_executable(Projekt1_run ${Sources} ${Headers} src/main.cpp)
 
+#konfiguracja dla testów
 add_executable(unit-test ${TestSources} ${Sources} ${Headers})
 target_link_libraries(unit-test gtest gtest_main)
 
