@@ -68,7 +68,7 @@ void MyDoublyLinkedList::InsertNewNode(Node* nodeAfterInsert, const int numberOf
     nodeAfterInsert->SetPointerToPreviousElementOfList(newElementToInsert);
     NumberOfElementsInList++;
 
-    AddedOrDeletedElementToDoubledLinkedList(Size(),Operation::Add);
+    MessageAddedOrDeletedElementToDoubledLinkedList(Size(),Operation::Add);
 }
 
 
@@ -83,7 +83,7 @@ void MyDoublyLinkedList::Earase(Node *elementToRemove) {
         delete elementToRemove;
         NumberOfElementsInList--;
 
-        AddedOrDeletedElementToDoubledLinkedList(Size(),Operation::Delete);
+        MessageAddedOrDeletedElementToDoubledLinkedList(Size(),Operation::Delete);
     }else{
         std::cerr << "Pusta Lista" <<std::endl;
     }
@@ -103,7 +103,7 @@ void MyDoublyLinkedList::Insert(Node *nodeAfterInsert, Node *nodeToInsert) {
     nodeAfterInsert->GetPointerToPreviousElementOfList()->SetPointerToNextElementOfList(nodeToInsert);
     nodeAfterInsert->SetPointerToPreviousElementOfList(nodeToInsert);
     NumberOfElementsInList++;
-    AddedOrDeletedElementToDoubledLinkedList(Size(),Operation::Add);
+    MessageAddedOrDeletedElementToDoubledLinkedList(Size(),Operation::Add);
 }
 
 

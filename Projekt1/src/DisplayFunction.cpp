@@ -1,7 +1,7 @@
 #include "../inc/DisplayFunction.hpp"
 #include <random>
 
-void AddedOrDeletedElementToDoubledLinkedList(int sizeOfDoubledLinkedList, Operation operation){
+void MessageAddedOrDeletedElementToDoubledLinkedList(int sizeOfDoubledLinkedList, Operation operation){
     switch (operation) {
         case Operation::Add:
             std:: cout << "-----------------------------------------------------"<< std::endl
@@ -17,7 +17,7 @@ void AddedOrDeletedElementToDoubledLinkedList(int sizeOfDoubledLinkedList, Opera
     }
 }
 
-void AddedOrDeletedElementFromPriorityQueue(int sizeOfDoubledLinkedList, Operation operation) {
+void MessageAddedOrDeletedElementFromPriorityQueue(int sizeOfDoubledLinkedList, Operation operation) {
     switch (operation) {
         case Operation::Add:
             std::cout << "-----------------------------------------------------"
@@ -35,7 +35,7 @@ void AddedOrDeletedElementFromPriorityQueue(int sizeOfDoubledLinkedList, Operati
     }
 }
 
-void ActionInDriver(Action action){
+void MessageActionInDriver(Action action){
     switch (action) {
         case Action::AddData:
             std::cout << "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << std::endl

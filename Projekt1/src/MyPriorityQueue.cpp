@@ -25,7 +25,7 @@ Iterator MyPriorityQueue::Insert(const int numberOfPacket, const std::string dat
     Iterator iteratorOfPositionInsertElement;
     iteratorOfPositionInsertElement = --beginOfPriorityQueue;
 
-    AddedOrDeletedElementFromPriorityQueue(Size(),Operation::Add);
+    MessageAddedOrDeletedElementFromPriorityQueue(Size(),Operation::Add);
 
     return iteratorOfPositionInsertElement;
 
@@ -42,7 +42,7 @@ Node &MyPriorityQueue::Min() const {
 void MyPriorityQueue::RemoveMin() {
     if (!Empty()){
         ListToImplementPriorityQueue.RemoveFront();
-        AddedOrDeletedElementFromPriorityQueue(Size(),Operation::Delete);
+        MessageAddedOrDeletedElementFromPriorityQueue(Size(),Operation::Delete);
     }
     else{
         std::cerr << "Pusta Kolejka Priorytetowa" <<std::endl;
@@ -55,7 +55,7 @@ void MyPriorityQueue::RemoveMin() {
 void MyPriorityQueue::Remove( const Iterator &elementToRemove) {
     if(!Empty()) {
         ListToImplementPriorityQueue.Earase(&(*elementToRemove));
-        AddedOrDeletedElementFromPriorityQueue(Size(),Operation::Delete);
+        MessageAddedOrDeletedElementFromPriorityQueue(Size(),Operation::Delete);
     }
 }
 

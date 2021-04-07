@@ -5,9 +5,12 @@ project(Projekt1)
 #specyfikacja wersji C++
 set(CMAKE_CXX_STANDARD 20)
 
+include_directories(lib/googletest-master/googletest/include)
+include_directories(lib/googletest-master/googlemock/include)
+enable_testing()
+
 # pliki źródłowe
 set(Sources
-        src/main.cpp
         src/MyDoublyLinkedList.cpp
         src/Node.cpp
         src/MyPriorityQueue.cpp
@@ -24,5 +27,17 @@ set(Headers
         inc/DisplayFunction.hpp
         )
 
+set(TestSources
+        test/MainTest.cpp
+        test/Test.cpp)
+
+add_subdirectory(lib/googletest-master)
+
 # dodanie pliku wykonwyalnego składającego się z nagłówków i plików zródłowych
-add_executable(Projekt1 ${Sources} ${Headers})
+add_executable(Projekt1_run ${Sources} ${Headers} src/main.cpp)
+
+add_executable(unit-test ${TestSources})
+target_link_libraries(unit-test gtest gtest_main)
+
+
+
