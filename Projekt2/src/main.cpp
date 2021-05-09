@@ -16,13 +16,12 @@ int main(){
     MyDoublyLinkedList myDoublyLinkedList;
     std::ifstream streamFromFileWithData("../data/projekt2_dane.csv");
 
-    Read(streamFromFileWithData, myDoublyLinkedList, 100);
-    BucketSort(myDoublyLinkedList);
+    Read(streamFromFileWithData, myDoublyLinkedList, 10000);
+    MergeSort(myDoublyLinkedList);
     MessageActionInDriver(myDoublyLinkedList, Action::VerificationOfSorted);
     MessageActionInDriver(myDoublyLinkedList, Action::MedianOfSorted);
     MessageActionInDriver(myDoublyLinkedList, Action::MeanAverageOfSorted);
     myDoublyLinkedList.Clear();
-
 
     std::chrono::time_point<std::chrono::system_clock> end = std::chrono::system_clock::now();
     auto duration2 = end.time_since_epoch();

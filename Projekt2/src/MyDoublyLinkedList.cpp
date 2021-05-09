@@ -148,7 +148,8 @@ void Read(std::istream &streamFromFile, MyDoublyLinkedList& myDoublyLinkedList, 
 
     int currentNumberOfData = 0;
 
-    while (!streamFromFile.eof() && currentNumberOfData <= desiredNumberOfData) {
+
+    while (!streamFromFile.eof() && currentNumberOfData < desiredNumberOfData) {
         getline(streamFromFile, temporaryStringToOTheEntireLine, '\n');
 
         InputDataFiltering(temporaryStringToOTheEntireLine, temporaryStringToMovieTitle, temporaryStringToFilmRating);
@@ -160,7 +161,9 @@ void Read(std::istream &streamFromFile, MyDoublyLinkedList& myDoublyLinkedList, 
 
         StringCleaner(temporaryStringToOTheEntireLine, temporaryStringToMovieTitle, temporaryStringToFilmRating);
         currentNumberOfData++;
+
     }
+
 }
 
 /* Funkcja odpowiedzialna za przefiltrowanie danych wejściowych polegająca na podzieleniu string'a wejsciowego,

@@ -71,7 +71,7 @@ void BucketSort(MyDoublyLinkedList &myDoublyLinkedList, int numberOfKey){
         arrayOfMyDoubleLinkedList[numberOfRating].AddBack(temporaryNodeForElementFromBackOfMDLL);
     }
 
-    for(int i=0; i < numberOfKey; i++){
+    for(int i=0; i < numberOfKey+1; i++){
         while(!arrayOfMyDoubleLinkedList[i].Empty()){
             Node temporaryNodeForElementFromFrontOfArray = arrayOfMyDoubleLinkedList[i].Front();
             arrayOfMyDoubleLinkedList[i].RemoveFront();
@@ -160,7 +160,6 @@ bool VerificationOfSortedMyDoublyLinkedList(MyDoublyLinkedList& myDoublyLinkedLi
         if(myDoublyLinkedList.Size() < amountNodeToShow){
             std::cout << (*myIteratorAfterMDLL).GetMovieAndRatingInList().Rating << std::endl;
         }
-
         ++myIteratorAfterMDLL;
     }
 
