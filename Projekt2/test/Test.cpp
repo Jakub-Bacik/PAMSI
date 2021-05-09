@@ -2,9 +2,7 @@
 #include "../inc/MyDoublyLinkedList.hpp"
 #include "../inc/Node.hpp"
 #include "../inc/Iterator.hpp"
-#include "../inc/BucketSort.hpp"
-#include "../inc/MergeSort.hpp"
-#include "../inc/QuickSort.hpp"
+#include "../inc/SortingAlgorithms.hpp"
 
 /*Testy klasy MyDoublyLinkedList*/
 
