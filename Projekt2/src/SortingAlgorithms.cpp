@@ -2,13 +2,13 @@
 
 /*
  * Algorytm sortowania szybkiego (QuickSort), polega na technice "Dziel i zwyciężaj".
- * Sortowanie listy dwukierunkowej realizowane jest przy pomocy rekuranecji. Z listy wybierany jest
- * specyficzny element nazywany pivotem najczęsciej jest to ostatni element z nieposortowanej listy.
+ * Sortowanie listy dwukierunkowej realizowane jest przy pomocy rekurencji. Z listy wybierany jest
+ * specyficzny element nazywany pivotem najczęściej  jest to ostatni element z nieposortowanej listy.
  * Następnie lista wejściowa jeśli zawiera co najmniej dwa elementy, dzielona jest na
  * trzy listy zawierające odpowiednio: większe, równe oraz mniejsze niż pivot. Następnie
  * rekurencyjnie wywołana jest funkcja QuickSort dla elementów mniejszych i większych
  * niż pivot. Po tym składana jest lista wyjściowa z wcześniej podzielonych list w odpowiedniej
- * kolejnosći, lista zawierająca elementy mniejsze, równe, większe.
+ * kolejności, lista zawierająca elementy mniejsze, równe, większe.
  * */
 void QuickSort(MyDoublyLinkedList &myDoublyLinkedList){
     if(myDoublyLinkedList.Size() <= 1){
@@ -83,12 +83,12 @@ void BucketSort(MyDoublyLinkedList &myDoublyLinkedList, int numberOfKey){
 }
 
 
-/* Algorytm sortowania szybkiego (QuickSort), polega na technice "Dziel i zwyciężaj".
- * Sortowanie listy dwukierunkowej realizowane jest przy pomocy rekuranecji. Jeśli
+/* Algorytm sortowania przez scalanie (MergeSort), polega na technice "Dziel i zwyciężaj".
+ * Sortowanie listy dwukierunkowej realizowane jest przy pomocy rekurencji. Jeśli
  * lista wejściowa jest większa niż dwa elementy to lista wejściowa dzielona jest
- * na dwie listy dwukierunkowe. Po czym następuje reukrencyjne wywołanie funkcji MergeSort
- * aż do uzyskania, listy składającej się z dwóch elementów. Następnie listy przekazane są
- * do funkcji Merge która łaczy listy w liste wyjściową.
+ * na dwie listy dwukierunkowe. Po czym następuje rekurencyjne wywołanie funkcji MergeSort
+ * aż do uzyskania, listy składającej się z jednego. Następnie listy przekazane są
+ * do funkcji Merge która łączy listy w listę wyjściową.
  * */
 void MergeSort(MyDoublyLinkedList &myDoublyLinkedList){
     int sizeOfMyDoublyLinkedList = myDoublyLinkedList.Size();
@@ -115,8 +115,8 @@ void MergeSort(MyDoublyLinkedList &myDoublyLinkedList){
 
 }
 
-/*Funkcja odpowiedzialna za połaczenie list dwukierunkowych. Polega na porównaniu klucza oraz dodaniu do
- * wyjściowej listy swukierunkowej w odpowiedni sposób.*/
+/*Funkcja odpowiedzialna za połączenie list dwukierunkowych. Polega na porównaniu klucza oraz dodaniu do
+ * wyjściowej listy dwukierunkowej w odpowiedni sposób.*/
 
 void Merge(MyDoublyLinkedList &myDoublyLinkedListFirstPart, MyDoublyLinkedList &myDoublyLinkedListSecondPart,
            MyDoublyLinkedList &myDoublyLinkedList){

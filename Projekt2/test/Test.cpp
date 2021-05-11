@@ -59,38 +59,6 @@ TEST(MyDLL, inputDataFiltering){
 
 }
 
-/* Test sprawdzajacy poprawność obliczania mediany numeru rankingu w posortowanej liście dwukierunkowej */
-TEST(MyDLL, medianOfSortedMyDLL){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddFront(1,"Adam");
-    myDoublyLinkedList.AddFront(2, "Marian");
-    myDoublyLinkedList.AddFront(6,"Adrian");
-
-    EXPECT_EQ(MedianOfSortedMyDoublyLinkedList(myDoublyLinkedList), 2);
-}
-/* Test sprawdzajacy poprawność obliczania średniej numeru rankingu w posorowanej liście dwukierunkowej */
-TEST(MyDLL, meanAverageOfSortedMyDLL){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddFront(1,"Adam");
-    myDoublyLinkedList.AddFront(2, "Marian");
-    myDoublyLinkedList.AddFront(6,"Adrian");
-
-    EXPECT_EQ(MeanAverageOfSortedDoublyLinkedList(myDoublyLinkedList), 3);
-}
-
-
-/* Test polegający na sprawdzeniu poprawności sortowania listy dwukierunkowej */
-TEST(MyDLL, verificationOfSortedMyDLL){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddBack(1,"Adam");
-    myDoublyLinkedList.AddBack(2, "Marian");
-    myDoublyLinkedList.AddBack(6,"Adrian");
-
-    EXPECT_TRUE(VerificationOfSortedMyDoublyLinkedList(myDoublyLinkedList));
-    myDoublyLinkedList.AddFront(3,"Adrian");
-    EXPECT_FALSE(VerificationOfSortedMyDoublyLinkedList(myDoublyLinkedList));
-}
-
 /*Test sprawdzający czy przeciążenie operatora << usunie wszystkie elementy z listy*/
 TEST(MyDLL, removeElementsFromStream){
     MyDoublyLinkedList myDoublyLinkedList;
@@ -196,4 +164,36 @@ TEST(MergeSort, checkingTheCorrectnessOfSorting){
     myDoublyLinkedList.RemoveFront();
     EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 5);
     myDoublyLinkedList.RemoveFront();
+}
+
+/* Test sprawdzajacy poprawność obliczania mediany numeru rankingu w posortowanej liście dwukierunkowej */
+TEST(SortingAlgorithms, medianOfSortedMyDLL){
+    MyDoublyLinkedList myDoublyLinkedList;
+    myDoublyLinkedList.AddFront(1,"Adam");
+    myDoublyLinkedList.AddFront(2, "Marian");
+    myDoublyLinkedList.AddFront(6,"Adrian");
+
+    EXPECT_EQ(MedianOfSortedMyDoublyLinkedList(myDoublyLinkedList), 2);
+}
+/* Test sprawdzajacy poprawność obliczania średniej numeru rankingu w posorowanej liście dwukierunkowej */
+TEST(SortingAlgorithms, meanAverageOfSortedMyDLL){
+    MyDoublyLinkedList myDoublyLinkedList;
+    myDoublyLinkedList.AddFront(1,"Adam");
+    myDoublyLinkedList.AddFront(2, "Marian");
+    myDoublyLinkedList.AddFront(6,"Adrian");
+
+    EXPECT_EQ(MeanAverageOfSortedDoublyLinkedList(myDoublyLinkedList), 3);
+}
+
+
+/* Test polegający na sprawdzeniu poprawności sortowania listy dwukierunkowej */
+TEST(SortingAlgorithms, verificationOfSortedMyDLL){
+    MyDoublyLinkedList myDoublyLinkedList;
+    myDoublyLinkedList.AddBack(1,"Adam");
+    myDoublyLinkedList.AddBack(2, "Marian");
+    myDoublyLinkedList.AddBack(6,"Adrian");
+
+    EXPECT_TRUE(VerificationOfSortedMyDoublyLinkedList(myDoublyLinkedList));
+    myDoublyLinkedList.AddFront(3,"Adrian");
+    EXPECT_FALSE(VerificationOfSortedMyDoublyLinkedList(myDoublyLinkedList));
 }

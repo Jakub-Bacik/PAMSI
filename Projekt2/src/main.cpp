@@ -16,7 +16,7 @@ int main(){
     MyDoublyLinkedList myDoublyLinkedList;
     std::ifstream streamFromFileWithData("../data/projekt2_dane.csv");
 
-    Read(streamFromFileWithData, myDoublyLinkedList, 10000);
+    Read(streamFromFileWithData, myDoublyLinkedList, 1000000);
     MergeSort(myDoublyLinkedList);
     MessageActionInDriver(myDoublyLinkedList, Action::VerificationOfSorted);
     MessageActionInDriver(myDoublyLinkedList, Action::MedianOfSorted);

@@ -166,7 +166,7 @@ void Read(std::istream &streamFromFile, MyDoublyLinkedList& myDoublyLinkedList, 
 
 }
 
-/* Funkcja odpowiedzialna za przefiltrowanie danych wejściowych polegająca na podzieleniu string'a wejsciowego,
+/* Funkcja odpowiedzialna za przefiltrowanie danych wejściowych polegająca na podzieleniu string'a wejściowego,
  * na dwa string'i odpowiednio tytuł i ranking filmu.
  * */
 void InputDataFiltering(std::string &temporaryStringToOTheEntireLine, std::string &temporaryStringToMovieTitle, std::string &temporaryStringToFilmRating){
@@ -193,7 +193,7 @@ void InputDataFiltering(std::string &temporaryStringToOTheEntireLine, std::strin
 }
 
 
-//Funkcja odpowiedzialana za wyczyszenie zawartości string'ów
+//Funkcja odpowiedzialna za wyczyszczenie zawartości string'ów
 void StringCleaner(std::string &temporaryStringToOTheEntireLine, std::string &temporaryStringToMovieTitle, std::string &temporaryStringToFilmRating){
     temporaryStringToFilmRating.clear();
     temporaryStringToMovieTitle.clear();
