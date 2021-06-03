@@ -8,10 +8,10 @@ int GameLogic::MaxValue(int depth, int alfa, int beta) {
 
     int score=0;
     if(RowCrossed(Sign::X) == 10 || ColumnCrossed(Sign::X) == 10|| DiagonalCrossed(Sign::X) == 10)
-        return -10;
+        return 10;
 
     if(RowCrossed(Sign::O) == 10 || ColumnCrossed(Sign::O) == 10|| DiagonalCrossed(Sign::O) == 10)
-        return 10;
+        return -10;
 
     if(MatrixIsFull())
         return 0;
@@ -41,10 +41,10 @@ int GameLogic::MinValue(int depth, int alfa, int beta) {
         return 0;
 
     if(RowCrossed(Sign::X) == 10 || ColumnCrossed(Sign::X) == 10|| DiagonalCrossed(Sign::X) == 10)
-        return -10;
+        return 10;
 
     else if(RowCrossed(Sign::O) == 10 || ColumnCrossed(Sign::O) == 10|| DiagonalCrossed(Sign::O) == 10)
-        return 10;
+        return -10;
 
     else if(MatrixIsFull())
         return 0;
@@ -70,11 +70,11 @@ int GameLogic::MinValue(int depth, int alfa, int beta) {
 
 int GameLogic::IsWinnerAndHowIsTheWinner() {
     if(RowCrossed(Sign::O) == 10 || ColumnCrossed(Sign::O) == 10|| DiagonalCrossed(Sign::O) == 10)
-        return 0;
+        return -10;
     if(RowCrossed(Sign::X) == 10 || ColumnCrossed(Sign::X) == 10|| DiagonalCrossed(Sign::X) == 10)
-        return 1;
+        return 10;
 
-    return -1;
+    return 0;
 
 }
 
@@ -105,7 +105,7 @@ void FunctionToShow(GameLogic& gameLogic) {
     int secondNumber;
     int whoseTurn = 0;
 
-    while (!gameLogic.MatrixIsFull() && gameLogic.IsWinnerAndHowIsTheWinner() == -1) {
+    while (!gameLogic.MatrixIsFull()) {
 
         (whoseTurn) ? std::cout << "Gracz pierwszy " << std::endl <<" ---- X ----" << std::endl : std::cout << "Gracz drugi " << std::endl <<"---- O ----" << std::endl;
         std::cout << "------------------" << std::endl;
@@ -147,7 +147,7 @@ void FunctionToShow(GameLogic& gameLogic) {
                 }
                 break;
         }
-        if(gameLogic.IsWinnerAndHowIsTheWinner()!= -1){
+        /*if(gameLogic.IsWinnerAndHowIsTheWinner()!= -1){
             std::cout << "Zwyciezyl gracz ";
             if(gameLogic.IsWinnerAndHowIsTheWinner() == 0){
                 std::cout << "pierwszy --- O ---" << std::endl;
@@ -155,7 +155,7 @@ void FunctionToShow(GameLogic& gameLogic) {
             if(gameLogic.IsWinnerAndHowIsTheWinner() == 1){
                 std::cout << "drugi --- X ---" << std::endl;
             }
-        }
+        }*/
 
     }
 }
