@@ -4,7 +4,9 @@
 #include <bits/stdc++.h>
 #include <algorithm>
 #include "Matrix.hpp"
+
 enum class Player{X, O, N};
+enum class Opponent{NormalPlayer, AI};
 struct Position{
     int column = -1;
     int row = -1;
@@ -21,5 +23,5 @@ public:
     bool SetSign(Player player, int horizontal, int vertical);
 
 };
-void FunctionToShow(GameLogic& gameLogic);
+void FunctionToShow(GameLogic& gameLogic, Opponent opponent);
 #endif //PROJEKT2_GAMELOGIC_HPP

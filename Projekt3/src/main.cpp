@@ -6,8 +6,7 @@
 int main(){
     GameLogic gameLogic(3,3);
     gameLogic.FillTheMatrix();
-    FunctionToShow(gameLogic);
-    std::cout << gameLogic << std::endl;
+    FunctionToShow(gameLogic, Opponent::NormalPlayer);
 
    return 0;
 }
