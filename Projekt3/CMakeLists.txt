@@ -11,10 +11,14 @@ enable_testing()
 
 # pliki źródłowe
 set(Sources
+        src/GameLogic.cpp
+        src/Matrix.cpp
         )
 
 #pliki nagłówkowe
 set(Headers
+        inc/GameLogic.hpp
+        inc/Matrix.hpp
         )
 
 set(TestSources
