@@ -48,7 +48,7 @@ TEST(GL, isWinnerAndHowIsTheWinner){
 
 }
 
-/*Sprawdzenie algorytmu polegające na zablokowaniu zwycięstwa gracza*/
+/*Sprawdzenie algorytmu minmax polegające na zablokowaniu zwycięstwa gracza*/
 TEST(GL, makeBestMove){
     GameLogic gameLogic(3,3);
     gameLogic.SetSign(Player::X,1,1);
