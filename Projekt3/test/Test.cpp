@@ -1,199 +1,151 @@
 #include "gtest/gtest.h"
-#include "../inc/MyDoublyLinkedList.hpp"
-#include "../inc/Node.hpp"
-#include "../inc/Iterator.hpp"
-#include "../inc/SortingAlgorithms.hpp"
+#include "../inc/GameLogic.hpp"
+#include "../inc/Matrix.hpp"
 
-/*Testy klasy MyDoublyLinkedList*/
+/*Testy klasy GameLogic*/
 
-/*Test polega na dodawaniu elementów na końcu listy, sprawdzaniu pierwszego
- * elementu, usuwaniu elementów z początku listy.*/
-TEST(MyDLL, addAndRemoveElementsFromBack) {
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddBack(1,"Adam");
-    myDoublyLinkedList.AddBack(2, "Marian");
-    myDoublyLinkedList.AddBack(3,"Adrian");
-    EXPECT_EQ(myDoublyLinkedList.Size(), 3);
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating,1);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Size(), 2);
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating,2);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Size(), 1);
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating,3);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_TRUE(myDoublyLinkedList.Empty());
+/*Test sprawdzający poprawność dodania nowego znaku lub usunięcia w odpowiednim miejscu macierzy*/
+TEST(GL, setSign){
+    GameLogic gameLogic(3,3);
+    gameLogic.SetSign(Player::X,0,0);
+    gameLogic.SetSign(Player::O, 1, 1);
+    EXPECT_EQ(gameLogic.GetCharFromMatrix(0,0), 'X');
+    EXPECT_EQ(gameLogic.GetCharFromMatrix(1,1), 'O');
+
+    gameLogic.SetSign(Player::N,1,1);
+    EXPECT_EQ(gameLogic.GetCharFromMatrix(1,1), ' ');
 
 }
 
-/*Test polega na dodawaniu elementów na początku listy, sprawdzaniu pierwszego
- * elementu, usuwaniu elementu z końca listy*/
-TEST(MyDLL, addAndRemoveElementsFromFront){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddFront(1,"Adam");
-    myDoublyLinkedList.AddFront(2, "Marian");
-    myDoublyLinkedList.AddFront(3,"Adrian");
-    EXPECT_EQ(myDoublyLinkedList.Size(), 3);
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating,3);
-    myDoublyLinkedList.RemoveBack();
-    EXPECT_EQ(myDoublyLinkedList.Size(), 2);
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating,3);
-    myDoublyLinkedList.RemoveBack();
-    EXPECT_EQ(myDoublyLinkedList.Size(), 1);
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating,3);
-    myDoublyLinkedList.RemoveBack();
-    EXPECT_TRUE(myDoublyLinkedList.Empty());
+/*Test sprawdzajacy funkcje odpowiedzialna za kontrolowanie czy któryś z graczy zwyciężył */
+TEST(GL, isWinnerAndHowIsTheWinner){
+    GameLogic gameLogic(3,3);
+    gameLogic.SetSign(Player::X,0,0);
+    gameLogic.SetSign(Player::X,1,1);
+    gameLogic.SetSign(Player::X,2,2);
+
+    EXPECT_EQ(gameLogic.IsWinnerAndHowIsTheWinner(), 10);
+    gameLogic.ClearTheMatrix();
+
+    gameLogic.SetSign(Player::O,0,2);
+    gameLogic.SetSign(Player::O,1,1);
+    gameLogic.SetSign(Player::O,2,0);
+    EXPECT_EQ(gameLogic.IsWinnerAndHowIsTheWinner(), -10);
+    gameLogic.ClearTheMatrix();
+
+    gameLogic.SetSign(Player::X,0,0);
+    gameLogic.SetSign(Player::X,0,1);
+    gameLogic.SetSign(Player::X,0,2);
+
+    EXPECT_EQ(gameLogic.IsWinnerAndHowIsTheWinner(), 10);
+    gameLogic.ClearTheMatrix();
+
+    gameLogic.SetSign(Player::O,0,0);
+    gameLogic.SetSign(Player::O,1,0);
+    gameLogic.SetSign(Player::O,2,0);
+    EXPECT_EQ(gameLogic.IsWinnerAndHowIsTheWinner(), -10);
+
 
 }
 
-/*Test sprawdzeniający poprawność filtracji danych wejściowych, poprzez podzielenie
- * string'a na tytuł filmu i numer rankingu*/
-TEST(MyDLL, inputDataFiltering){
-    std::string temporaryStringToOTheEntireLine = "20, Game Of Throne, 8.0";
-    std::string temporaryStringToFilmRating;
-    std::string temporaryStringToMovieTitle;
-    InputDataFiltering(temporaryStringToOTheEntireLine, temporaryStringToMovieTitle, temporaryStringToFilmRating);
+/*Sprawdzenie algorytmu polegające na zablokowaniu zwycięstwa gracza*/
+TEST(GL, makeBestMove){
+    GameLogic gameLogic(3,3);
+    gameLogic.SetSign(Player::X,1,1);
+    gameLogic.SetSign(Player::O, 0,0);
+    gameLogic.SetSign(Player::X,0,2);
 
-    EXPECT_EQ(temporaryStringToFilmRating, " 8.0");
-    EXPECT_EQ(temporaryStringToMovieTitle, " Game Of Throne");
+    Position positionToCheck = MakeBestMove(gameLogic);
 
-}
-
-/*Test sprawdzający czy przeciążenie operatora << usunie wszystkie elementy z listy*/
-TEST(MyDLL, removeElementsFromStream){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddFront(1,"Adam");
-    myDoublyLinkedList.AddFront(2, "Marian");
-    myDoublyLinkedList.AddFront(3,"Adrian");
-    std::cout << myDoublyLinkedList;
-    EXPECT_TRUE(myDoublyLinkedList.Empty());
-}
-
-
-/*Testy klasy Node*/
-
-/*Testuje przeciązenie operatora < wykorzystanego do komparatora*/
-TEST(Node, comparator){
-    Node firstNode;
-    Node secondNode;
-    firstNode.SetMovieAndRatingInList(3, "Adam");
-    secondNode.SetMovieAndRatingInList(5, "Marian");
-    EXPECT_GT(secondNode.GetMovieAndRatingInList().Rating, firstNode.GetMovieAndRatingInList().Rating);
-}
-
-/*Testuje tworzenie powiązań między elementami Klasy Node*/
-TEST(Node, creatorStruct){
-    Node firstNode;
-    Node secondNode;
-    firstNode.SetPointerToNextElementOfList(&secondNode);
-    secondNode.SetPointerToPreviousElementOfList(&firstNode);
-    EXPECT_EQ(firstNode.GetPointerToNextElementOfList(),&secondNode);
-}
-
-/*Testy klasy Iterator*/
-
-/*Tests sprwadzający działanie metod iteratora*/
-TEST(Iterator, createAndWork){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddBack(3, "Adam");
-    myDoublyLinkedList.AddBack(2, "Adrian");
-    myDoublyLinkedList.AddBack(5, "Marian");
-
-    Iterator firstIterator(&(myDoublyLinkedList.Front()));
-    Iterator secondIterator = firstIterator;
-    ++firstIterator;
-    EXPECT_EQ((*firstIterator).GetMovieAndRatingInList().Rating, 2);
-    EXPECT_TRUE(secondIterator!=firstIterator);
-    EXPECT_FALSE(secondIterator == firstIterator);
-    --firstIterator;
-    EXPECT_TRUE(secondIterator==firstIterator);
-    EXPECT_FALSE(secondIterator != firstIterator);
+    EXPECT_EQ(positionToCheck.column, 0);
+    EXPECT_EQ(positionToCheck.row, 2);
 
 }
 
-/*Test algorytmu QuickSort (Sortowanie szybkie), sprawdzenie poprawności sortoania elementów w liście
- * dwukierunkowej*/
-TEST(QuickSort, checkingTheCorrectnessOfSorting){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddBack(3, "Adam");
-    myDoublyLinkedList.AddBack(2, "Adrian");
-    myDoublyLinkedList.AddBack(5, "Marian");
+/*Test klady Matrix*/
+/*Test sprawdzający podstawowe operacje na macierzy takie jak
+ * dodanie znaku w odpowiednim miejscu, pobranie znaku z
+ * odpowiedniego miejsca, sprawdzenie wymiarów macierzy,
+ * spradzenie obecnosci znaku w  wybranym miejscu i sprawdzenie
+ * czy macierz jest pusta*/
+TEST(Matrix, baseOperationOfMatrix){
+    Matrix matrix(3,3);
+    matrix.FillTheMatrix();
+    EXPECT_EQ(matrix.GetSizeOfMatrix(), 9);
+    EXPECT_EQ(matrix.GetFieldSize(), 3);
 
-    QuickSort(myDoublyLinkedList);
+    matrix.SetXOnPosition(1,1);
+    EXPECT_EQ(matrix.GetCharFromMatrix(1,1), 'X');
 
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 2);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 3);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 5);
-    myDoublyLinkedList.RemoveFront();
+    matrix.SetOOnPosition(2,2);
+    EXPECT_EQ(matrix.GetCharFromMatrix(2,2), 'O');
+
+    matrix.ClearTheMatrix();
+    EXPECT_EQ(matrix.GetCharFromMatrix(1,1), ' ');
+
+    EXPECT_FALSE(matrix.MatrixIsFull());
+    EXPECT_TRUE(matrix.PlaceIsEmpty(2,2));
+
 }
 
+/*Test polegający na sprawdzeniu poprawności funkcji odpowiedzialnej za
+ * kontrolowanie wystąpienia odpowiedniej ilości takich samych znaków w rzędzie*/
+TEST(Matrix, rowCrossed){
+    Matrix matrix(3,3);
+    matrix.FillTheMatrix();
+    matrix.SetXOnPosition(0,1);
+    matrix.SetXOnPosition(1,1);
+    matrix.SetXOnPosition(2,1);
 
-/*Test algorytmu BucketSort (Sortowanie kubełkowe), sprawdzenie poprawności sortoania elementów w liście
- * dwukierunkowej */
-TEST(BucketSort, checkingTheCorrectnessOfSorting){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddBack(3, "Adam");
-    myDoublyLinkedList.AddBack(2, "Adrian");
-    myDoublyLinkedList.AddBack(5, "Marian");
+    EXPECT_EQ(matrix.RowCrossed(Sign::X), 10);
 
-    BucketSort(myDoublyLinkedList);
+    matrix.ClearTheMatrix();
 
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 2);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 3);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 5);
-    myDoublyLinkedList.RemoveFront();
+    EXPECT_EQ(matrix.RowCrossed(Sign::X),0);
+
 }
 
-/*Test algorytmu MergeSort (Sortowanie przez scalanie), sprawdzenie poprawności sortoania elementów w liście
- * dwukierunkowej */
-TEST(MergeSort, checkingTheCorrectnessOfSorting){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddBack(3, "Adam");
-    myDoublyLinkedList.AddBack(2, "Adrian");
-    myDoublyLinkedList.AddBack(5, "Marian");
+/*Test polegający na sprawdzeniu poprawności funkcji odpowiedzialnej za
+ * kontrolowanie wystąpienia odpowiedniej ilości takich samych znaków w kolumnie*/
+TEST(Matrix, columnCrossed){
+    Matrix matrix(3,3);
+    matrix.FillTheMatrix();
+    matrix.SetXOnPosition(1,0);
+    matrix.SetXOnPosition(1,1);
+    matrix.SetXOnPosition(1,2);
 
-    MergeSort(myDoublyLinkedList);
+    EXPECT_EQ(matrix.ColumnCrossed(Sign::X), 10);
 
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 2);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 3);
-    myDoublyLinkedList.RemoveFront();
-    EXPECT_EQ(myDoublyLinkedList.Front().GetMovieAndRatingInList().Rating, 5);
-    myDoublyLinkedList.RemoveFront();
+    matrix.ClearTheMatrix();
+
+    EXPECT_EQ(matrix.ColumnCrossed(Sign::X), 0);
+
 }
 
-/* Test sprawdzajacy poprawność obliczania mediany numeru rankingu w posortowanej liście dwukierunkowej */
-TEST(SortingAlgorithms, medianOfSortedMyDLL){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddFront(1,"Adam");
-    myDoublyLinkedList.AddFront(2, "Marian");
-    myDoublyLinkedList.AddFront(6,"Adrian");
+/*Test polegający na sprawdzeniu poprawności funkcji odpowiedzialnej za
+ * kontrolowanie wystąpienia odpowiedniej ilości takich samych znaków diagonalnie*/
+TEST(Matrix, dialogCrossed){
+    Matrix matrix(3,3);
+    matrix.FillTheMatrix();
+    matrix.SetXOnPosition(0,0);
+    matrix.SetXOnPosition(1,1);
+    matrix.SetXOnPosition(2,2);
 
-    EXPECT_EQ(MedianOfSortedMyDoublyLinkedList(myDoublyLinkedList), 2);
+    EXPECT_EQ(matrix.DiagonalCrossed(Sign::X), 10);
+
+    matrix.ClearTheMatrix();
+
+    EXPECT_EQ(matrix.DiagonalCrossed(Sign::X), 0);
+
+    matrix.SetXOnPosition(0,2);
+    matrix.SetXOnPosition(1,1);
+    matrix.SetXOnPosition(2,0);
+
+    EXPECT_EQ(matrix.DiagonalCrossed(Sign::X), 10);
+
+    matrix.ClearTheMatrix();
+
+    EXPECT_EQ(matrix.DiagonalCrossed(Sign::X), 0);
+
 }
-/* Test sprawdzajacy poprawność obliczania średniej numeru rankingu w posorowanej liście dwukierunkowej */
-TEST(SortingAlgorithms, meanAverageOfSortedMyDLL){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddFront(1,"Adam");
-    myDoublyLinkedList.AddFront(2, "Marian");
-    myDoublyLinkedList.AddFront(6,"Adrian");
 
-    EXPECT_EQ(MeanAverageOfSortedDoublyLinkedList(myDoublyLinkedList), 3);
-}
-
-
-/* Test polegający na sprawdzeniu poprawności sortowania listy dwukierunkowej */
-TEST(SortingAlgorithms, verificationOfSortedMyDLL){
-    MyDoublyLinkedList myDoublyLinkedList;
-    myDoublyLinkedList.AddBack(1,"Adam");
-    myDoublyLinkedList.AddBack(2, "Marian");
-    myDoublyLinkedList.AddBack(6,"Adrian");
-
-    EXPECT_TRUE(VerificationOfSortedMyDoublyLinkedList(myDoublyLinkedList));
-    myDoublyLinkedList.AddFront(3,"Adrian");
-    EXPECT_FALSE(VerificationOfSortedMyDoublyLinkedList(myDoublyLinkedList));
-}

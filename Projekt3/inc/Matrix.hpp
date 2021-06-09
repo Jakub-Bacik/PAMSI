@@ -6,6 +6,11 @@
 
 enum class Sign{X, O};
 
+/*
+ * Klasa implementująca pojęcie macierzy, odpowiadająca za zarządzanie nią poprzez
+ * tworzenie, edytowanie, sprawdzanie. Atrybut CharacterInARow to liczba znaków
+ * która upoważnia do zwycięstwia, natomiast FieldSize to rozmiar macierzy.
+ * */
 class Matrix{
     int CharacterInARow;
     int FieldSize;

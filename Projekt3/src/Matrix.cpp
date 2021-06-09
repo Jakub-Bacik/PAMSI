@@ -1,44 +1,59 @@
 #include "../inc/Matrix.hpp"
+//Metoda odpowiedzialna za tworzenie pustej macierzy
 void Matrix::FillTheMatrix(){
     for (int i = 0; i < FieldSize*FieldSize; i++) {
         matrix.push_back(' ');
     }
 }
 
+//Metoda odpowiedzialna za czyszczenie macierzy
 void  Matrix::ClearTheMatrix(){
     for (int i = 0; i < matrix.size(); i++) {
         matrix[i] = ' ';
     }
 }
 
+//Metoda odpowiedzialna za pobieranie całej macierzy
 std::vector<char> Matrix::GetMatrix()const {
     return matrix;
 }
 
+//Metoda odpowiedzialna za długość wektora
 int Matrix::GetSizeOfMatrix()const {
     return matrix.size();
 }
 
+//Metoda odpowiedzialna za rozmiar macierzy
 int Matrix::GetFieldSize() const {
     return FieldSize;
 }
 
+//Metoda pobierająca znak z odpowiedniego miejsca
 char Matrix::GetCharFromMatrix(int horizontal, int vertical)const{
     return matrix[horizontal + (vertical * FieldSize)];
 }
 
+//Metoda wstawiająca znak X w odpowiednim miejscu
 void Matrix::SetXOnPosition(int horizontal, int vertical){
     matrix[horizontal + (vertical * FieldSize)] = 'X';
 }
 
+//Metoda wstawiająca znak O w odpowiednim miejscu
 void Matrix::SetOOnPosition(int horizontal, int vertical){
     matrix[horizontal + (vertical * FieldSize)] = 'O';
 }
 
+//Metoda wstawiająca pusty znak w odpowiednim miejscu
 void Matrix::SetNOnPosition(int horizontal, int vertical){
     matrix[horizontal + (vertical * FieldSize)] = ' ';
 }
 
+/*
+ * Przeciązenie operatora << służące do wydrukowania macierzy na strumień zewnętrzny
+ * w odpowiednim i czytelnym formacie dla użytkownika. Pierwszy warunek odpowiedzialny
+ * jest za wydrukowanie pionowej kreski która odziela pola, natomiast drugi warunek
+ * warunek odpowiada za wydrukowanie poziomej kreski.
+ * */
 std::ostream& operator << (std::ostream& outputStream, const Matrix& matrix){
     outputStream <<std::endl;
 
@@ -63,6 +78,11 @@ std::ostream& operator << (std::ostream& outputStream, const Matrix& matrix){
     outputStream << std::endl;
 }
 
+/* Metoda sprawdzająca czy w rzędzie jest odpowiednia liczba jednakowych znaków uprawniająca do zwycięstwa.
+ * Liczona jest liczba wystąpień wybranego znaku aż do napotkaniu innego znaku, jeśli liczba zgada się
+ * z założoną liczbą znaków w rzedzie umożliwiającą wygraną to funkcja zwraca 10 w przeciwnnym wypadku funkcja zwraca
+ * zero.
+ */
 int Matrix::RowCrossed(Sign sign) {
     char stringToFind;
     if(sign == Sign::X)
@@ -89,7 +109,12 @@ int Matrix::RowCrossed(Sign sign) {
         return 0;
 }
 
-int Matrix::ColumnCrossed(Sign sign){
+/* Metoda sprawdzająca czy w kolumnie jest odpowiednia liczba jednakowych znaków uprawniająca do zwycięstwa
+ * Liczona jest liczba wystąpień wybranego znaku aż do napotkaniu innego znaku, jeśli liczba zgada się
+ * z założoną liczbą znaków w rzedzie umożliwiającą wygraną to funkcja zwraca 10 w przeciwnnym wypadku funkcja zwraca
+ * zero.
+ */
+ int Matrix::ColumnCrossed(Sign sign){
     char stringToFind;
     if(sign == Sign::X)
         stringToFind = 'X';
@@ -114,7 +139,16 @@ int Matrix::ColumnCrossed(Sign sign){
         return 0;
 }
 
-int Matrix::DiagonalCrossed(Sign sign){
+/* Metoda sprawdzająca czy diagonalnie jest odpowiednia liczba jednakowych znaków uprawniająca do zwycięstwa
+ * Liczona jest liczba wystąpień wybranego znaku aż do napotkaniu innego znaku, jeśli liczba zgada się
+ * z założoną liczbą znaków w rzedzie umożliwiającą wygraną to funkcja zwraca 10 w przeciwnnym wypadku funkcja zwraca
+ * zero. Funkcja składa się z czterech pętli, dwie pierwsze odpowiedzialne są za sprawdzenie macierzy diagonalnie z
+ * góry do dołu. Natomiast dwie pozostałe odpowiedznialne są za sprawdzenie macierzy z dołu do góry.  Dwie pierwsze
+ * pętle podzielone są na pierwszą która sprawdza diagonalnie potem przesuwa się do góry, druga sprawdza poniżej
+ * diagonalnej i przesuwa się do dołu. Pozostałe dwie wykonują bardzo podobną funkcje tylko dla diagonalnej rosnącej.
+ *
+ */
+ int Matrix::DiagonalCrossed(Sign sign){
     char stringToFind;
     if(sign == Sign::X)
         stringToFind = 'X';
@@ -189,10 +223,12 @@ int Matrix::DiagonalCrossed(Sign sign){
         return 0;
 }
 
+//Metoda sprawdzajaca czy miejsce w macierzy jest puste
 bool Matrix::PlaceIsEmpty(int horizontal, int vertical){
-    return GetCharFromMatrix(horizontal,vertical) != 'X' && GetCharFromMatrix(horizontal,vertical) != 'O';
+    return (GetCharFromMatrix(horizontal,vertical) != 'X' && GetCharFromMatrix(horizontal,vertical) != 'O') ||GetCharFromMatrix(horizontal,vertical) == ' ';
 }
 
+//Metoda sprawdzająca czy macierz jest pełna
 bool Matrix::MatrixIsFull(){
     char cross = 'X';
     char circle = 'O';
