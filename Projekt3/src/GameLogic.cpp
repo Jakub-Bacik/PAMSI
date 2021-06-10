@@ -249,3 +249,33 @@ void FunctionToShow(GameLogic& gameLogic, Opponent opponent) {
 
 }
 
+/*Funkcja odpowiedzialna za wybór przez gracza rozmiaru planszy oraz
+ * liczby znaków w rzędzie odpowiedzialnych za zwycięstwo jednego z graczy.*/
+
+GameLogic ChooseTheSizeOfBoardAndCharacterInARow(){
+    int sizeOfField;
+    int characterInARow;
+    std::cout << "Kolko i krzyzyk" << std:: endl
+              << std::endl;
+
+    std::cout << "Podaj rozmiar planszy:";
+    std::cin >> sizeOfField;
+    while (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cin >> sizeOfField;
+    }
+    std::cout << "Podaj liczbe znakow z koleji ktora umozliwia zwyciestwo:";
+    std::cin >> characterInARow;
+    while (std::cin.fail()) {
+        std::cin.clear();
+        std::cin.ignore(1000, '\n');
+        std::cin >> characterInARow;
+    }
+
+    GameLogic gameLogic(characterInARow, sizeOfField);
+
+    return gameLogic;
+
+}
+

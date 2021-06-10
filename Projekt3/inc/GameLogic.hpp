@@ -35,4 +35,5 @@ int MinValue(GameLogic &board,int depth, int alfa, int beta);
 Position MakeBestMove(GameLogic &board);
 
 void FunctionToShow(GameLogic& gameLogic, Opponent opponent);
+GameLogic ChooseTheSizeOfBoardAndCharacterInARow();
 #endif //PROJEKT2_GAMELOGIC_HPP
